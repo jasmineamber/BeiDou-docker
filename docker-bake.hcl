@@ -6,15 +6,7 @@ variable "IMAGE_TAG_BACKEND_GHCR" {
   default = "beidou-server:latest"
 }
 
-variable "IMAGE_TAG_BACKEND_DOCKER" {
-  default = "beidou-server:latest"
-}
-
 variable "IMAGE_TAG_FRONTEND_GHCR" {
-  default = "beidou-ui:latest"
-}
-
-variable "IMAGE_TAG_FRONTEND_DOCKER" {
   default = "beidou-ui:latest"
 }
 
@@ -34,9 +26,7 @@ target "backend" {
   }
   tags = [
     "${IMAGE_TAG_BACKEND_GHCR}-${jre.name}",
-    "${IMAGE_TAG_BACKEND_DOCKER}-${jre.name}",
     jre.name == "temurin" ? "${IMAGE_TAG_BACKEND_GHCR}" : "",
-    jre.name == "temurin" ? "${IMAGE_TAG_BACKEND_DOCKER}" : "",
   ]
   args = {
     RUNTIME_JRE_IMAGE = jre.image
@@ -56,7 +46,6 @@ target "frontend" {
   ]
   tags = [
     "${IMAGE_TAG_FRONTEND_GHCR}",
-    "${IMAGE_TAG_FRONTEND_DOCKER}",
   ]
   args = {
     CACHEBUST = "${CACHEBUST}"
@@ -69,10 +58,6 @@ target "frontend" {
 #####################################################################################
 
 variable "IMAGE_TAG_RELEASE_GHCR" {
-  default = "beidou-server-all:latest"
-}
-
-variable "IMAGE_TAG_RELEASE_DOCKER" {
   default = "beidou-server-all:latest"
 }
 
@@ -97,7 +82,6 @@ target "release" {
   platforms = [platform_with_alias.platform]
   tags = [
     "${IMAGE_TAG_RELEASE_GHCR}",
-    "${IMAGE_TAG_RELEASE_DOCKER}"
   ]
   args = {
     RELEASE_VERSION = "${ARG_RELEASE_VERSION}"

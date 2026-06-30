@@ -10,7 +10,7 @@ on:
     
 env:
   GHCR_REGISTRY: ghcr.io
-  GHCR_NAMESPACE: beidoums
+  GHCR_NAMESPACE: jasmineamber
   RELEASE_IMAGE: beidou-server-all
 
 
